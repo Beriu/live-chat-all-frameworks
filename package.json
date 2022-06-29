@@ -1,0 +1,17 @@
+{
+  "name": "live-chat-all-frameworks",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^5.1.6",
+    "nx": "^14.3.6"
+  }
+}
