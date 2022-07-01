@@ -1,21 +1,59 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import { Socket } from "socket.io-client";
+import { ChatMessage, ClientToServerEvents, ServerToClientEvents } from "repo-types";
+import { io } from "socket.io-client";
+import { onUnmounted, onMounted, ref } from "vue";
+import Chat from "./components/Chat.vue";
+
+let ws: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
+
+const messages = ref<ChatMessage[]>([]);
+const maxNumberChatMessages = 20;
+
+const onChatMessage = (message: ChatMessage) => {
+    if(messages.value.length >= maxNumberChatMessages) messages.value.shift();
+    messages.value = [...messages.value, message];
+};
+
+onMounted(() => {
+    ws = io("ws://localhost:8080", {
+        path: "/socket",
+        withCredentials: true,
+        extraHeaders: {
+            "my-custom-header": "abcd"
+        }
+    });
+
+    ws.on("chatMessage", onChatMessage);
+});
+
+onUnmounted(() => {
+    ws?.close();
+    ws = null;
+});
+
+const messageHandler = (msg: string) => ws?.emit("sendMessage", msg);
+
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+    <main :style="{ width: '500px', minHeight: '500px', maxHeight: '500px', display: 'flex' }">
+        <Chat
+        :message-handler="messageHandler"
+        :messages="messages" 
+        :is-color-blind="false" />
+    </main>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+    }
 </style>
