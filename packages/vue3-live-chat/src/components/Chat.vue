@@ -21,6 +21,7 @@ const isLastElement = (index: number) => index === props.messages.length - 1;
             v-for="(message, index) of props.messages" 
             :key="message.id">
                 <ChatMessageComponent
+                    :is-color-blind="isColorBlind"
                     :scrollIntoView="isLastElement(index)"
                     :message="message"
                 />
@@ -28,8 +29,9 @@ const isLastElement = (index: number) => index === props.messages.length - 1;
         </ul>
         <ChatInput
             @submit-message="($event) => messageHandler($event)" 
-            placeholder="Send a tweet" 
-            :is-disabled="false" />
+            placeholder="Send a tweet"
+            :is-disabled="false"
+        />
     </div>
 </template>
 

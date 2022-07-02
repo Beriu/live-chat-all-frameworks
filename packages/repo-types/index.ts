@@ -24,3 +24,9 @@ export interface ClientToServerEvents {
 export interface InterServerEvents {}
   
 export interface SocketData {}
+
+export const Emoji: Record<string, string> = {
+    '[*topkek*]': "🤣",
+    '[*lul*]':    "😂",
+    '[*zeama*]':  "😎"
+}

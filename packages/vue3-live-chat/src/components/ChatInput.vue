@@ -23,13 +23,41 @@ const sendMessage = () => {
     </form>
 </template>
 
-<style>
+<style scoped lang="scss">
+
+    $border-radius: 2px;
+    $border-size: 1px;
+    $border-color: grey;
+    $border-color-focus: black;
+
     form {
         flex-grow: 1;
         display: flex;
-    }
 
-    input {
-        flex-grow: 1;
+        input {
+            flex-grow: 1;
+        }
+
+        & > * {
+            border: $border-size solid $border-color;
+            display: block;
+            font-size: 1rem;
+            padding: .25rem .5rem;
+            outline: none;
+
+            &:focus {
+                border-color: $border-color-focus;
+            }
+
+            &:not(:first-child):not(:last-child) {
+                border-radius: 0;
+            }
+            &:first-child {
+                border-radius: $border-radius 0 0 $border-radius;
+            }
+            &:last-child {
+                border-radius: 0 $border-radius $border-radius 0;
+            }
+        }
     }
 </style>

@@ -8,6 +8,7 @@ import Chat from "./components/Chat.vue";
 let ws: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
 
 const messages = ref<ChatMessage[]>([]);
+const isColorBlind = ref<boolean>(false);
 const maxNumberChatMessages = 20;
 
 const onChatMessage = (message: ChatMessage) => {
@@ -23,12 +24,11 @@ onMounted(() => {
             "my-custom-header": "abcd"
         }
     });
-
     ws.on("chatMessage", onChatMessage);
 });
 
 onUnmounted(() => {
-    ws?.close();
+    ws?.disconnect();
     ws = null;
 });
 
@@ -37,11 +37,15 @@ const messageHandler = (msg: string) => ws?.emit("sendMessage", msg);
 </script>
 
 <template>
-    <main :style="{ width: '500px', minHeight: '500px', maxHeight: '500px', display: 'flex' }">
+    <form>
+        <input id="color-blind-mode" type="checkbox" v-model="isColorBlind" />
+        <label for="color-blind-mode">Color blind mode</label>
+    </form>
+    <main :style="{ width: '500px', minHeight: '500px', maxHeight: '500px', display: 'flex'}">
         <Chat
         :message-handler="messageHandler"
         :messages="messages" 
-        :is-color-blind="false" />
+        :is-color-blind="isColorBlind" />
     </main>
 </template>
 
