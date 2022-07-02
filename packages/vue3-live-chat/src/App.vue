@@ -4,6 +4,7 @@ import { ChatMessage, ClientToServerEvents, ServerToClientEvents } from "repo-ty
 import { io } from "socket.io-client";
 import { onUnmounted, onMounted, ref } from "vue";
 import Chat from "./components/Chat.vue";
+import { BACKEND_PORT } from "repo-types/env";
 
 let ws: Socket<ServerToClientEvents, ClientToServerEvents> | null = null;
 
@@ -17,12 +18,9 @@ const onChatMessage = (message: ChatMessage) => {
 };
 
 onMounted(() => {
-    ws = io("ws://localhost:8080", {
-        path: "/socket",
+    ws = io(`ws://localhost:${BACKEND_PORT}`, {
         withCredentials: true,
-        extraHeaders: {
-            "my-custom-header": "abcd"
-        }
+        extraHeaders: { "my-custom-header": "abcd" }
     });
     ws.on("chatMessage", onChatMessage);
 });

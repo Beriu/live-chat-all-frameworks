@@ -8,21 +8,19 @@ import {
     ServerToClientEvents
 } from "repo-types";
 import { wrapMessage, generateMessage } from "./utils";
+import { FRONTEND_PORT, BACKEND_PORT } from "repo-types/env";
 
 const app = express();
 const server = createServer(app);
 
 const socketServer = new SocketServer<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>(server, {
-    path: "/socket",
     cors: {
-        origin: `http://localhost:3000`,
+        origin: `http://localhost:${FRONTEND_PORT}`,
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
     }
 });
-
-const requestsPort = 8080;
 
 app.get("/", (req, res) => res.send("<h1>Hello World</h1>"));
 
@@ -63,6 +61,6 @@ socketServer.on('connection', (socket) => {
     });
 });
 
-server.listen(requestsPort, () => {
-    console.log(`Started listening on port: ${requestsPort}. http://localhost:${requestsPort}`);
+server.listen(BACKEND_PORT, () => {
+    console.info(`Started listening on port: ${BACKEND_PORT}. http://localhost:${BACKEND_PORT}`);
 });
