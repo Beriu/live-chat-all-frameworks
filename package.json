@@ -10,7 +10,8 @@
   "workspaces": [
     "packages/repo-types",
     "packages/node-socket-server",
-    "packages/vue3-live-chat"
+    "packages/vue3-live-chat",
+    "packages/react18-live-chat"
   ],
   "devDependencies": {
     "lerna": "^5.1.6",
