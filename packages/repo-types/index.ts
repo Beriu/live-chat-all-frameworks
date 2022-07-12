@@ -1,16 +1,16 @@
 export interface User {
-    id: string,
-    username: string,
-    email: string,
-    tier: number
-};
+    id: string;
+    username: string;
+    email: string;
+    tier: number;
+}
 
 export interface ChatMessage {
-    id: string,
-    user: User,
-    payload: string,
-    timestamp: number
-};
+    id: string;
+    user: User;
+    payload: string;
+    timestamp: number;
+}
 
 export interface ServerToClientEvents {
     userConnected: () => void;

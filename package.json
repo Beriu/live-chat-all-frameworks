@@ -2,7 +2,10 @@
   "name": "live-chat-all-frameworks",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "dev:react": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/react18-live-chat\"",
+    "dev:vue": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/vue3-live-chat\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,5 +19,8 @@
   "devDependencies": {
     "lerna": "^5.1.6",
     "nx": "^14.3.6"
+  },
+  "dependencies": {
+    "concurrently": "^7.2.2"
   }
 }

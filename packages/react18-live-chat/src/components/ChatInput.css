@@ -1,0 +1,15 @@
+#chatInput {
+    display: flex;
+}
+
+#chatInput input {
+    flex-grow: 3;
+}
+
+#chatInput button {
+    flex-grow: 1;
+}
+
+#chatInput > * {
+    padding: .25rem;
+}

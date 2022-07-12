@@ -5,10 +5,12 @@ import {
     ClientToServerEvents,
     InterServerEvents,
     SocketData,
-    ServerToClientEvents
+    ServerToClientEvents,
+    ChatMessage
 } from "repo-types";
 import { wrapMessage, generateMessage } from "./utils";
 import { FRONTEND_PORT, BACKEND_PORT } from "repo-types/env";
+import EventHydrator from "./EventHydrator";
 
 const app = express();
 const server = createServer(app);
@@ -26,38 +28,33 @@ app.get("/", (req, res) => res.send("<h1>Hello World</h1>"));
 
 type CustomSocket = Socket<ClientToServerEvents, ServerToClientEvents, InterServerEvents, SocketData>;
 
-interface SocketConnection {
-    socket: CustomSocket,
-    feeder: NodeJS.Timer | null
-};
+const connections: Map<string, CustomSocket> = new Map();
 
-const connections: Map<string, SocketConnection> = new Map();
+const hydrator = new EventHydrator<CustomSocket, ServerToClientEvents, ChatMessage>(
+    2500, connections, "chatMessage", generateMessage
+);
+hydrator.start();
 
 socketServer.on('connection', (socket) => {
-    console.info(`New connection: ${socket.id}`);
-
     let conn = connections.get(socket.id);
 
-    if(!conn) {
-        conn = { socket, feeder: null };
-        connections.set(socket.id, conn);
+    if(conn === undefined) {
+        if(connections.size === 0) hydrator.startIfTurnedOff();
+        console.info(`New connection: ${socket.id}`);
+        connections.set(socket.id, socket);
     }
-    
-    conn.feeder = setInterval(() => {
-        socket.emit("chatMessage", generateMessage())
-    }, 2500);
 
     socket.on("sendMessage", (msg) => {
-        connections.forEach(conn => {
-            conn.socket.emit("chatMessage", wrapMessage(msg));
+        console.info('\x1b[36m%s\x1b[0m', `Socket: ${socket.id}`, " ---> ", msg);
+        connections.forEach(s => {
+            s.emit("chatMessage", wrapMessage(msg));
         });
     });
 
     socket.on("disconnect", (reason) => {
         console.info(`Connection closed: ${socket.id}. Reason: ${reason}`);
-        const conn = connections.get(socket.id);
-        if(conn && conn.feeder) clearInterval(conn.feeder);
         connections.delete(socket.id);
+        if(connections.size === 0) hydrator.stop();
     });
 });
 
