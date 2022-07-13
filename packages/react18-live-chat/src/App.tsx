@@ -13,7 +13,7 @@ let socket: SocketConnection = io(
         withCredentials: true,
         extraHeaders: { "my-custom-header": "abcd" }
     }
-);;
+);
 
 const App: FunctionComponent = () => {
 

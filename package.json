@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "dev:react": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/react18-live-chat\"",
-    "dev:vue": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/vue3-live-chat\""
+    "dev:vue": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/vue3-live-chat\"",
+    "dev:svelte": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/svelte-live-chat\""
   },
   "keywords": [],
   "author": "",
@@ -14,7 +15,8 @@
     "packages/repo-types",
     "packages/node-socket-server",
     "packages/vue3-live-chat",
-    "packages/react18-live-chat"
+    "packages/react18-live-chat",
+    "packages/svelte-live-chat"
   ],
   "devDependencies": {
     "lerna": "^5.1.6",
