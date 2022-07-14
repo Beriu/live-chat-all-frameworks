@@ -1,0 +1,9 @@
+<span style="line-height: 1.5rem;">
+    <app-username 
+        [isColorBlind]="isColorBlind" 
+        [username]="message.user.username"
+        [tier]="message.user.tier">
+    </app-username>
+    <span> : </span>
+    <span>{{ message.payload | appendEmojis }}</span>
+</span>

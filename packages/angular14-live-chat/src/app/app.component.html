@@ -1,0 +1,17 @@
+<app-chat>
+
+    <ng-template ngFor let-message [ngForOf]="messages" chat-message-slot>
+        <app-chat-message
+            [isColorBlind]="isColorBlind"
+            [message]="message">
+        </app-chat-message>
+    </ng-template>
+
+    <app-chat-input 
+        chat-input-slot 
+        placeholder="Send a tweet" 
+        [messageHandler]="sendMessage">
+    </app-chat-input>
+
+</app-chat>
+

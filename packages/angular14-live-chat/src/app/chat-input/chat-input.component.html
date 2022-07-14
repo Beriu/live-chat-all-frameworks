@@ -1,0 +1,4 @@
+<form id="chatInput" (submit)="$event.preventDefault()">
+    <input #messageInput type="text" [placeholder]="placeholder" />
+    <button [disabled]="!messageInput.value" (click)="sendMessage(messageInput)">SEND</button>
+</form>
