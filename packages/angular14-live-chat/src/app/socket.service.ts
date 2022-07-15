@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import type { ClientToServerEvents, ServerToClientEvents } from 'repo-types';
 import { BACKEND_PORT } from 'repo-types/env';
 import { Socket, Manager } from 'socket.io-client';
+import { AppModule } from './app.module';
 
 type SocketManager = Manager<ServerToClientEvents, ClientToServerEvents>;
 type SocketConnection = Socket<ServerToClientEvents, ClientToServerEvents>;
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root"
 })
 export class SocketService {
 

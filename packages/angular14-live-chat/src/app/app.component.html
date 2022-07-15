@@ -1,17 +1,29 @@
-<app-chat>
+<main class="app-container">
+    <app-chat>
 
-    <ng-template ngFor let-message [ngForOf]="messages" chat-message-slot>
-        <app-chat-message
-            [isColorBlind]="isColorBlind"
-            [message]="message">
-        </app-chat-message>
-    </ng-template>
+        <form chat-color-blind>
+            <input
+                id="color-blind-mode"
+                type="checkbox"
+                [(ngModel)]="isColorBlind"
+                [ngModelOptions]="{standalone: true}"/>
+            <label for="color-blind-mode">Color Blind Mode</label>
+        </form>
 
-    <app-chat-input 
-        chat-input-slot 
-        placeholder="Send a tweet" 
-        [messageHandler]="sendMessage">
-    </app-chat-input>
-
-</app-chat>
+        <ng-template ngFor let-message let-i="index" [ngForOf]="messages" chat-message-slot [ngForTrackBy]="trackByMessages">
+            <app-chat-message
+                [scrollIntoView]="isLastMessage(i)"
+                [isColorBlind]="isColorBlind"
+                [message]="message">
+            </app-chat-message>
+        </ng-template>
+    
+        <app-chat-input 
+            chat-input-slot 
+            placeholder="Send a tweet" 
+            [messageHandler]="sendMessage">
+        </app-chat-input>
+        
+    </app-chat>
+</main>
 

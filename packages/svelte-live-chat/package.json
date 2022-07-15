@@ -10,6 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "repo-types": "^1.0.0",
     "sass": "^1.53.0",
     "socket.io-client": "^4.5.1"
   },

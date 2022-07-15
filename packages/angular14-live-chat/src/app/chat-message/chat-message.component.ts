@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ChatMessage } from "repo-types/index";
 
 @Component({
@@ -6,15 +6,21 @@ import { ChatMessage } from "repo-types/index";
     templateUrl: './chat-message.component.html',
     styleUrls: ['./chat-message.component.scss']
 })
-export class ChatMessageComponent implements OnInit {
+export class ChatMessageComponent implements AfterViewInit {
 
+    @Input() scrollIntoView: boolean = false;
     @Input() isColorBlind!: boolean;
     @Input() message!: ChatMessage;
 
+    @ViewChild("messageParent") el!: ElementRef<HTMLSpanElement>;
+
     constructor() {}
 
-    ngOnInit(): void {
-
+    ngAfterViewInit(): void {
+        if(this.scrollIntoView) {
+            this.el.nativeElement.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
     }
-
 }

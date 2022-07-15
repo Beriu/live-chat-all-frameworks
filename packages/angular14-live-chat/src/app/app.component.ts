@@ -5,7 +5,7 @@ import { SocketService } from './socket.service';
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -13,10 +13,20 @@ export class AppComponent implements OnInit, OnDestroy {
     isColorBlind = false;
     messages: ChatMessage[] = [];
 
-    constructor(private socketService: SocketService) {}
+    constructor(private socketService: SocketService) {
+        console.log('service', this.socketService);
+    }
 
-    sendMessage(msg: string) {
+    sendMessage = (msg: string) => {
         this.socketService.emit("sendMessage", msg);
+    }
+
+    isLastMessage = (index: number) => {
+        return index === this.messages.length - 1;
+    }
+
+    trackByMessages(index: number, msg: ChatMessage) { 
+        return index; 
     }
 
     ngOnInit(): void {

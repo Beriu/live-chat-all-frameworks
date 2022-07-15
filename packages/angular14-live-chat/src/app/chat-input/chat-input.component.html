@@ -1,4 +1,4 @@
-<form id="chatInput" (submit)="$event.preventDefault()">
-    <input #messageInput type="text" [placeholder]="placeholder" />
-    <button [disabled]="!messageInput.value" (click)="sendMessage(messageInput)">SEND</button>
+<form class="chat-input-form" (submit)="$event.preventDefault()">
+    <input [(ngModel)]="chatInput" [ngModelOptions]="{ standalone: true }" type="text" [placeholder]="placeholder" />
+    <button [disabled]="!chatInput" (click)="sendMessage(chatInput)">SEND</button>
 </form>

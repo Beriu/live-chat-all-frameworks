@@ -7,6 +7,8 @@ import { ChatInputComponent } from './chat-input/chat-input.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { UsernameComponent } from './username/username.component';
 import { AppendEmojisPipe } from './append-emojis.pipe';
+import { SocketService } from './socket.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,9 @@ import { AppendEmojisPipe } from './append-emojis.pipe';
     AppendEmojisPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule, FormsModule
   ],
-  providers: [],
+  providers: [SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
