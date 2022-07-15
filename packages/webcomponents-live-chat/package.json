@@ -1,0 +1,31 @@
+{
+  "name": "webcomponents-live-chat",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
+  },
+  "description": "wc live chat",
+  "main": "intex.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Beriu/live-chat-all-frameworks.git"
+  },
+  "keywords": [
+    "webcomponents",
+    "native",
+    "wc"
+  ],
+  "author": "Tiberiu R.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Beriu/live-chat-all-frameworks/issues"
+  },
+  "homepage": "https://github.com/Beriu/live-chat-all-frameworks#readme"
+}

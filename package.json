@@ -6,7 +6,8 @@
     "dev:react": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/react18-live-chat\"",
     "dev:vue": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/vue3-live-chat\"",
     "dev:svelte": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/svelte-live-chat\"",
-    "dev:angular": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run ng serve --w packages/angular14-live-chat\""
+    "dev:angular": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run ng serve --w packages/angular14-live-chat\"",
+    "dev:wc": "concurrently \"npm run dev --w packages/node-socket-server\" \"npm run dev --w packages/webcomponents-live-chat\""
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,8 @@
     "packages/vue3-live-chat",
     "packages/react18-live-chat",
     "packages/svelte-live-chat",
-    "packages/angular14-live-chat"
+    "packages/angular14-live-chat",
+    "packages/webcomponents-live-chat"
   ],
   "devDependencies": {
     "lerna": "^5.1.6",
