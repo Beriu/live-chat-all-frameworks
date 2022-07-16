@@ -3,22 +3,26 @@ import CustomElement from "../lib/CustomElement";
 export default class App extends CustomElement {
 
     protected propsConfig = {
-        name: {
+        status: {
             type: String,
-            required: true
+            required: true,
+            default: () => "OFFLINE"
         }
     };
 
     
     static get observedAttributes() {
-        return ["name"];
+        return ["status"];
     }
 
     constructor() {
         super();
     }
 
-    connectedCallback(): void {
-        this.innerHTML = this.props.name;
+    render() {
+        return this.shadowRoot!.innerHTML = `
+            <slot name="colot-blind-mode"></slot>
+            <slot name="chat"></slot>
+        `;
     }
 }

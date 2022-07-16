@@ -1,3 +1,6 @@
+import { deserializeData } from "./dataTransformers";
+import StringToBoolean from "./StringToBoolean";
+
 export interface ICustomElement {
     connectedCallback(): void;
     disconnectedCallback(): void;
@@ -22,6 +25,7 @@ export default class CustomElement extends HTMLElement implements ICustomElement
 
     constructor() {
         super();
+        this.attachShadow({mode: 'open'});
     }
 
     get props(): Props {
@@ -36,21 +40,28 @@ export default class CustomElement extends HTMLElement implements ICustomElement
                     throw new Error(`Prop ${propKey} is required.`);
                 }
 
-                return value;
+                if(!value && 'default' in this.propsConfig[propKey]) {
+                    const defaultValue = this.propsConfig[propKey].default as () => any;
+                    return defaultValue();
+                }
+
+                return [String, Number, StringToBoolean].includes(this.propsConfig[propKey].type)
+                    ? this.propsConfig[propKey].type(deserializeData(value as any))
+                    : deserializeData(value as any);
             }
         });
     }
     
     connectedCallback(): void {
-        throw new Error("Method not implemented.");
+        this.render();
     }
-    
+
     disconnectedCallback(): void {
-        throw new Error("Method not implemented.");
+        console.info(`${this.constructor.name} disconnected.`);
     }
 
     adoptedCallback(): void {
-        throw new Error("Method not implemented.");
+        console.info(`${this.constructor.name} adopted.`);
     }
 
     attributeChangedCallback(propKey: string, oldValue: any, newValue: any) {
@@ -58,7 +69,7 @@ export default class CustomElement extends HTMLElement implements ICustomElement
         this.render(propKey, newValue);
     }
 
-    render(propKey: string, propValue: any) {
-        this.innerHTML = propValue;
+    render(...args: any[]) {
+        throw new Error("No render function is implemented.");
     }
 }
