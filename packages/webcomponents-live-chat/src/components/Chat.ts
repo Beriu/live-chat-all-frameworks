@@ -56,11 +56,15 @@ export default class Chat extends CustomElement {
             }
         `;
 
+        let lastNode: Element | null = null;
 
-        this.props.messages.forEach(m => {
-            wrapper.appendChild(
-                createNode(m)
-            )
+        this.props.messages.forEach((m: ChatMessage, index: number) => {
+            const node = createNode(m);
+            wrapper.appendChild(node);
+
+            if(index === this.props.messages.length - 1) {
+                lastNode = node;
+            }
         });
 
         this.shadowRoot!.innerHTML = `
@@ -68,5 +72,10 @@ export default class Chat extends CustomElement {
             ${wrapper.outerHTML}
             <slot name="chat-input"></slot>
         `;
+
+        //@ts-ignore Doesn't work in shadowRoot https://bugs.chromium.org/p/chromium/issues/detail?id=918357
+        lastNode?.shadowRoot
+            .querySelector('span.username')
+            .scrollIntoView({ block: "center", inline: "center", behavior: "smooth" });
     }
 }
