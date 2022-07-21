@@ -10,7 +10,8 @@
     "dev:angular": "concurrently \"npm run dev:backend\" \"npm run ng serve --w packages/angular14-live-chat\"",
     "dev:wc": "concurrently \"npm run dev:backend\" \"npm run dev --w packages/webcomponents-live-chat\"",
     "dev:lit": "concurrently \"npm run dev:backend\" \"npm run dev --w packages/litElement-live-chat\"",
-    "dev:solid": "concurrently \"npm run dev:backend\" \"npm run dev --w packages/solidjs-live-chat\""
+    "dev:solid": "concurrently \"npm run dev:backend\" \"npm run dev --w packages/solidjs-live-chat\"",
+    "dev:alpine": "concurrently \"npm run dev:backend\" \"npm run dev --w packages/alpinejs-live-chat\""
   },
   "keywords": [],
   "author": "",
@@ -25,7 +26,8 @@
     "packages/angular14-live-chat",
     "packages/webcomponents-live-chat",
     "packages/litElement-live-chat",
-    "packages/solidjs-live-chat"
+    "packages/solidjs-live-chat",
+    "packages/alpinejs-live-chat"
   ],
   "devDependencies": {
     "lerna": "^5.1.6",

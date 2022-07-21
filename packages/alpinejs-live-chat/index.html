@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine Live Chat</title>
+  </head>
+  <body>
+      <main class="grid place-items-center min-h-screen" x-data="appComponent">
+        <div>
+          <form @submit.prevent>
+              <input x-model="isColorBlind" id="color-blind-mode" type="checkbox">
+              <label for="color-blind-mode">Color blind mode</label>
+          </form>
+
+          <div class="flex flex-col gap-2 overflow-y-scroll" style="height: 400px; width: 600px">
+            <template x-for="(message, index) in messages">
+              <p x-init="scrollIntoView($el, index)">
+                <span
+                class="rounded-sm text-white px-2"
+                :class="backgroundColor(message.user.tier)" 
+                x-text="message.user.username"></span>:
+                <span x-text="appendEmojies(message.payload)"></span>
+              </p>
+            </template>
+          </div>
+
+
+          <form class="flex" @submit.prevent>
+            <input 
+              class="grow-[3] px-2 rounded-l border-2 border-slate-500" 
+              x-model="textInput" 
+              type="text" 
+              placeholder="Send a tweet">
+            <button class="grow-[1] rounded-r border-2 border-slate-500" @click="sendMessage">Send</button>
+          </form>
+        </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
