@@ -1,3 +1,5 @@
+# The good ol' days of artisanal code writing  
+
 # Multiple Frontend Framework Implementations of a Live Chat 
 
 This repo was inspired by an interview done by Theo from Ping.gg, in which Dan Abramov has to do a technical assigment in React. Video:
